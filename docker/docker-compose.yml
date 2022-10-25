@@ -31,12 +31,12 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.portainer.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.routers.portainer.tls.certresolver=letsencrypt
       - traefik.http.routers.portainer.rule=Host(`portainer.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.portainer.loadbalancer.server.port=9000
       # Enable basic auth, set var in ~/.warden/.env
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
-      - "traefik.http.routers.traefik.middlewares=traefik-auth"
+      - "traefik.http.middlewares.portainer-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
+      - "traefik.http.routers.traefik.middlewares=portainer-auth"
     restart: ${WARDEN_RESTART_POLICY:-always}
 
   dnsmasq:
@@ -71,7 +71,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.dnsmasq.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.routers.dnsmasq.tls.certresolver=letsencrypt
       - traefik.http.routers.dnsmasq.rule=Host(`dnsmasq.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.dnsmasq.loadbalancer.server.port=8080
       # Enable basic auth, set var in ~/.warden/.env
@@ -85,7 +85,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.mailhog.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.routers.dnsmasq.tls.certresolver=letsencrypt
       - traefik.http.routers.mailhog.rule=Host(`mailhog.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.mailhog.loadbalancer.server.port=8025
       # Enable basic auth, set var in ~/.warden/.env
