@@ -7,7 +7,7 @@ services:
       - "${TRAEFIK_LISTEN:-127.0.0.1}:80:80"     # The HTTP port
       - "${TRAEFIK_LISTEN:-127.0.0.1}:443:443"   # The HTTPS port
     volumes:
-      - ${WARDEN_HOME_DIR}/etc/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ${WARDEN_HOME_DIR}/etc/traefik/traefik-custom.yml:/etc/traefik/traefik.yml
       - ${WARDEN_HOME_DIR}/etc/traefik/dynamic.yml:/etc/traefik/dynamic.yml
       - ${WARDEN_HOME_DIR}/ssl/certs:/etc/ssl/certs
       - /var/run/docker.sock:/var/run/docker.sock
@@ -16,6 +16,9 @@ services:
       - traefik.http.routers.traefik.tls=true
       - traefik.http.routers.traefik.rule=Host(`traefik.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.routers.traefik.service=api@internal
+      # Enable basic auth, set var in ~/.warden/.env
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
+      - "traefik.http.routers.traefik.middlewares=traefik-auth"
     restart: ${WARDEN_RESTART_POLICY:-always}
 
   portainer:
@@ -29,6 +32,9 @@ services:
       - traefik.http.routers.portainer.tls=true
       - traefik.http.routers.portainer.rule=Host(`portainer.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.portainer.loadbalancer.server.port=9000
+      # Enable basic auth, set var in ~/.warden/.env
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
+      - "traefik.http.routers.traefik.middlewares=traefik-auth"
     restart: ${WARDEN_RESTART_POLICY:-always}
 
   dnsmasq:
@@ -65,6 +71,9 @@ services:
       - traefik.http.routers.dnsmasq.tls=true
       - traefik.http.routers.dnsmasq.rule=Host(`dnsmasq.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.dnsmasq.loadbalancer.server.port=8080
+      # Enable basic auth, set var in ~/.warden/.env
+      - "traefik.http.middlewares.dnsmasq-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
+      - "traefik.http.routers.dnsmasq.middlewares=dnsmasq-auth"
     restart: ${WARDEN_RESTART_POLICY:-always}
 
   mailhog:
@@ -75,6 +84,9 @@ services:
       - traefik.http.routers.mailhog.tls=true
       - traefik.http.routers.mailhog.rule=Host(`mailhog.${WARDEN_SERVICE_DOMAIN:-warden.test}`)
       - traefik.http.services.mailhog.loadbalancer.server.port=8025
+      # Enable basic auth, set var in ~/.warden/.env
+      - "traefik.http.middlewares.mailhog-auth.basicauth.users=${WARDEN_BASICAUTH_USER}:${WARDEN_BASICAUTH_PASS}"
+      - "traefik.http.routers.mailhog.middlewares=mailhog-auth"
     restart: ${WARDEN_RESTART_POLICY:-always}
 
   tunnel:

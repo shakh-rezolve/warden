@@ -2,8 +2,8 @@
 api:
   dashboard: true
 providers:
-  file:
-    filename: /etc/traefik/dynamic.yml
+  #  file:
+  #    filename: /etc/traefik/dynamic.yml
   docker:
     network: warden
     defaultRule: "Host(`{{ .Name }}.warden.test`)"
