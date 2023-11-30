@@ -23,3 +23,15 @@ log:
 global:
   checkNewVersion: false
   sendAnonymousUsage: false
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      tlsChallenge: {}
+      email: "shakhmehedi@rezolve.com"
+      # Staging
+      #caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      #storage: "/etc/ssl/certs/letsencrypt-staging.json"
+      # production
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      storage: "/etc/ssl/certs/letsencrypt-prod.json"
