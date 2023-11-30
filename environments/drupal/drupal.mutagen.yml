@@ -5,11 +5,11 @@ sync:
     watch:
       pollingInterval: 10
     ignore:
-      vcs: false
+      vcs: true
       paths:
         # Root .git folder 
         - "/.git/"
-      
+
         # System files
         - ".DS_Store"
         - "._*"
@@ -18,12 +18,10 @@ sync:
         - "*~"
         - "*.sw[a-p]"
 
-        # Magento files
-        - "/pub/media"
-        - "/pub/static/**"
-        - "!/pub/static/.htaccess"
-        - "/var/**"
-        - "!/var/.htaccess"
+        # Drupal files
+        - "web/sites/default/files/**"
+        - "web/sites/default/private/**"
+
 
     permissions:
       defaultFileMode: "0644"

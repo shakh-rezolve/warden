@@ -1,12 +1,57 @@
 # Change Log
 
+<!--
 ## UNRELEASED [x.y.z](https://github.com/davidalger/warden/tree/x.y.z) (yyyy-mm-dd)
-[All Commits](https://github.com/davidalger/warden/compare/0.12.0..develop)
+[All Commits](https://github.com/davidalger/warden/compare/0.13.1..develop)
+-->
+## Version [0.14.1](https://github.com/wardenenv/warden/tree/0.14.1) (2023-07-10)
+[All Commits](https://github.com/wardenenv/warden/compoare/0.14.0..0.14.1)
+
+**Enhancements:**
+* `warden status` command added that shows running Warden environments ([#669](https://github.com/wardenenv/warden/pull/669) by @bap14)
+
+**Bug Fixes:**
+* Updated Mutagen connection detection so that Mutagen doesn't resync every time in versions >= 0.15.0
+
+## Version [0.14.0](https://github.com/wardenenv/warden/tree/0.14.0) (2023-06-19)
+[All Commits](https://github.com/wardenenv/warden/compare/0.13.1..0.14.0)
+
+**Dependency Changes:**
+* All commands now use the Docker Compose plugin (`docker compose`) instead of the standalone command (`docker-compose`)  
+  Please be aware that this will change your container names from using underscores to using dashes (e.g. vanilla_db_1 becomes vanilla-db-1).  This is configured through the environment variable `DOCKER_COMPOSE_COMMAND` which defaults to `docker compose`.
+
+**Enhancements**
+* ElasticSearch 8.7 and 8.8 images are available
+* Drupal environment type added ([#646](https://github.com/wardenenv/warden/pull/646) by @bap14)
+
+## Version [0.13.1](https://github.com/wardenenv/warden/tree/0.13.1) (2023-03-21)
+[All Commits](https://github.com/wardenenv/warden/compare/0.13.0..0.13.1)
+
+**Bug Fixes:**
+* Removed changelog item about Backup and Restore commands that were reverted
+* Incremented version from 0.12.0 to 0.13.1
+
+## Version [0.13.0](https://github.com/wardenenv/warden/tree/0.13.0) (2023-03-20)
+[All Commits](https://github.com/wardenenv/warden/compare/0.12.0..0.13.0)
 
 **Enhancements:**
 
-* Updated environment default Node version from 10 to 12 (issue [#250](https://github.com/davidalger/warden/issues/250))
-* Default URL for ElasticsearchHQ is now configured in the docker-compose config ([#428](https://github.com/davidalger/warden/pull/428) by @ihor-sviziev)
+* Updated environment default Node version from 10 to 12 ([#425](https://github.com/wardenenv/warden/pull/425) by @davidalger)
+* Ignore the only root .git directory ([#496](https://github.com/wardenenv/warden/pull/496) by @ihor-sviziev)
+* Allow dnsmasq service to be disabled ([#462](https://github.com/wardenenv/warden/pull/462) by by @davidhiendl)
+* Update Magento2 defaults to 2.4.6 ([#618](https://github.com/wardenenv/warden/pull/618) by by @lalittmohan)
+* The ability to specify `MYSQL_DISTRIBUTION=(mysql|mariadb)` and `MYSQL_DISTRIBUTION_VERSION` ([dd5ff](https://github.com/wardenenv/warden/commit/dd5ffddf4764d43c70387435c7c75035615661f0) by @rootindex)
+* Add `WARDEN_OPENSEARCH=1` and `OPENSEARCH_VERSION` ([2bd95](https://github.com/wardenenv/warden/commit/2bd95457748c1d639dc6109018d963ff624137ac) by @navarr)
+* Migration from Selenium to Seleniarm ([471dc](https://github.com/wardenenv/warden/commit/471dc0411771e21448dd4aa9eba8e8fdc7abdfdb) by @navarr)
+* Scoped environment config loading ([#451](https://github.com/wardenenv/warden/pull/451) by @tdgroot)
+* Portainer made optional and off by default ([03783](https://github.com/wardenenv/warden/commit/03783b65cfdd644133e75468808a93e751922077) by @bap14)
+* Persist MySQL command history ([45a16](https://github.com/wardenenv/warden/commit/45a16f064680dec0e7cb3fe4906090359bd3dfd5) by @navarr)
+
+**Bug Fixes:**
+* Update default URL for ElasticsearchHQ by @ihor-sviziev in [wardenenv/warden#428](https://github.com/wardenenv/warden/pull/428)
+* Corrected syntax of env-init.help command by @davidalger in [wardenenv/warden#490](https://github.com/wardenenv/warden/pull/490)
+* Add `traefik.docker.network` label to specify docker network exclusively by @tdgroot in [wardenenv/warden#458](https://github.com/wardenenv/warden/pull/458)
+* Require docker compose 2.2.3 when compose v2 is active by @davidalger in [wardenenv/warden#489](https://github.com/wardenenv/warden/pull/489)
 
 ## Version [0.12.0](https://github.com/davidalger/warden/tree/0.12.0) (2021-08-28)
 [All Commits](https://github.com/davidalger/warden/compare/0.11.0..0.12.0)
